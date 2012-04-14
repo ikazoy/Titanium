@@ -1,0 +1,6 @@
+TI_VERSION=1.8.1
+TI_SDK_DIR=/Users/ozaki.yoshiki/Library/Application Support/Titanium/mobilesdk/osx/$(TI_VERSION)/iphone
+TI_APPID=com.ikazo_y.my_face_log.sample
+OTHER_LDFLAGS[sdk=iphoneos*]=$(inherited) -weak_framework iAd
+OTHER_LDFLAGS[sdk=iphonesimulator*]=$(inherited) -weak_framework iAd
+#include "module"

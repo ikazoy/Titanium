@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="WorkbenchPreferenceDialogSettings">
+		<item value="91" key="DIALOG_Y_ORIGIN"/>
+		<item value="135" key="DIALOG_X_ORIGIN"/>
+	</section>
+	<section name="ImportExportAction">
+		<item value="com.aptana.git.ui.wizards.CloneWizard" key="ImportExportPage.STORE_SELECTED_IMPORT_WIZARD_ID"/>
+		<list key="ImportExportPage.STORE_EXPANDED_IMPORT_CATEGORIES">
+			<item value="org.eclipse.ui.Basic"/>
+			<item value="com.aptana.git.ui.clone.category"/>
+			<item value="org.eclipse.debug.ui"/>
+			<item value="com.aptana.ui.wizards.import.category"/>
+			<item value="org.eclipse.team.ui.importWizards"/>
+			<item value="com.appcelerator.titanium.import.wizard.category"/>
+		</list>
+	</section>
+</section>

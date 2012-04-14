@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+	<string name="tab">タブ</string>
+	<string name="window">ウィンドウ</string>
+	<string name="add">登録</string>
+	<string name="delete">削除</string>
+</resources>
