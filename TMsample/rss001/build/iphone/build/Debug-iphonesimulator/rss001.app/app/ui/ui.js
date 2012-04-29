@@ -1,0 +1,1 @@
+/Users/ozaki.yoshiki/Documents/Titanium Studio Workspace/TMsample/rss001/Resources/app/ui/ui.js

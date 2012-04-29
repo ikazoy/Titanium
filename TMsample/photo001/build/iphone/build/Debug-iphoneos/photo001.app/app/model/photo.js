@@ -1,0 +1,1 @@
+/Users/ozaki.yoshiki/Documents/Titanium Studio Workspace/TMsample/photo001/Resources/app/model/photo.js

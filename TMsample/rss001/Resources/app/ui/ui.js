@@ -33,6 +33,42 @@
 			window: win
 		});
 		
+		// リスト表示
+		var tableView = Ti.UI.createTableView({
+			data:[
+				{title: "Foo", link: 'http://www.appcelerator.com/', color: '#000', hasChild: true},
+				{title: "Bar", link: 'http://developer.appcelerator.com/', color: '#000', hasChild: true},
+				{title: "Hoge", link: 'http://wiki.appcelerator.org/', color: '#000', hasChild: true}
+			]
+		});
+		win.add(tableView);
+		
+		win.addEventListener('focus', function(event){
+			var query = String.format("select * from rss where url = '%s'", _url);
+			Ti.Yahoo.yql(query, function(response){
+				if (response.success == false) {
+					alert("Yahoo YQL erro.");
+					return;
+				}
+				response.data.item.forEach(function(item){
+					tableView.appendRow({title: item.title, link: item.link, hasDetail: true});
+				});
+			});	
+		});
+		
+		// イベントハンドラ
+		tableView.addEventListener('click', function(event){
+			var detailWin = Ti.UI.createWindow({
+				title: event.rowData.title,
+				backgroundColor: '#fff',
+			});
+			var webView = Ti.UI.createWebView({
+				url: event.rowData.link
+			});
+			detailWin.add(webView);
+			tab.open(detailWin);
+		});
+		
 		return tab;
 	};
 })();

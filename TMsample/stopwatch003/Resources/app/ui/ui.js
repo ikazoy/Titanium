@@ -56,6 +56,51 @@
 		});
 		win.add(button);
 		
+		// イベントハンドラ
+		var intervalId = null;
+		var _startStopwatch = function(){
+			label.value = '00:00:00.000';
+			// ボタンを押したときの時間を保持
+			var startTime = new Date();
+			
+			// ラベルを更新する関数を定義
+			var _updateTimer = function updateTimer (){
+				var UNIT_HOUR = 60 * 60 * 1000;
+				var UNIT_MINUTE = 60 * 1000;
+				var UNIT_SEC = 1000;
+				
+				// 現在日時とボタンを押したときの時間を比較
+				var now = new Date();
+				var diff = now.getTime() - startTime.getTime();
+				
+				// 経過時間を整形
+				var hour = Math.floor(diff / UNIT_HOUR);
+				var minute = Math.floor((diff - hour * UNIT_HOUR) / UNIT_MINUTE);
+				var sec = Math.floor((diff - hour * UNIT_HOUR - minute * UNIT_MINUTE)  / UNIT_SEC);
+				var msec = Math.floor( diff % UNIT_SEC);
+				label.text = ('0' + hour).slice(-2) + ':' + ('0' + minute).slice(-2) + ':' + ('0' + sec).slice(-2)  + '.' + ('00' + msec).slice(-3);
+			};
+			// 3msごとに_updateTimerを呼び出し実行する
+			intervalId = setInterval(_updateTimer, 3);
+			button.title = "Stop";
+		};
+		
+		var _stopStopwatch = function(){
+			clearInterval(intervalId);
+			button.title = "Start";
+		}
+		
+		var started = false;
+		button.addEventListener('click', function(){
+			if (started) {
+				_stopStopwatch();
+				started = false;
+			} else {
+				_startStopwatch();
+				started = true;
+			}
+		});
+		
 		return tab;
 	};
 	
@@ -73,6 +118,12 @@
 			title: '使い方',
 			window: win
 		});
+		
+		// タブの中身
+		var web = Ti.UI.createWebView({
+			url: 'how_to_play.html'
+		});
+		win.add(web);
 		
 		return tab;
 	}
