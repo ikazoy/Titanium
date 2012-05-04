@@ -17,12 +17,21 @@
 	app.photo.getAll = function(){
 		var db = Ti.Database.open("tiphoto");
 		
-		// ダミー情報を返すようにする
 		var photos = [];
-		for(var i = 0; i < 20; i++) {
-			photos.push({id: i, path: '/photo_example1.png', latitude: 0, longitude: 0});
+		
+		var rows = db.execute('select id, path, latitude, longitude, created_at from photos');
+		while (rows.isValidRow()){
+			photos.push({
+				id : rows.fieldByName('id'),
+				path : rows.fieldByName('path'),
+				latitude : rows.fieldByName('latitude'),
+				longitude : rows.fieldByName('longitude'),
+				created_at : rows.fieldByName('created_at'),
+			});
+			rows.next();
 		}
 		
+		rows.close();
 		db.close();
 		
 		return photos;
@@ -30,7 +39,24 @@
 	
 	// 写真を登録するメソッド
 	app.photo.save = function(options){
+		var now = new Date.getTime();
+		
+		var file = Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, String.format( "%d-%d", now, Math.floor( Math.random() * 1000 ) ));
+		file.write(options.image);
+		
 		var db = Ti.Database.open("tiphoto");
+		db.execute("insert into photos (path, latitude, longitude, created_at) values (?, ?, ?, ?), file.nativePath, 0, 0 , now");
+		
+		var photo = {
+			id : db.lastInsertRowId,
+			path : file.nativePath,
+			latitude : 0,
+			longitude : 0,
+			created_at : now,
+		};
+		
 		db.close();
+		
+		return photo;
 	};
 })();
